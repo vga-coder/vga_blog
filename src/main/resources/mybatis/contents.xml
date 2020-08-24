@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<!-- dev.mvc.contents.ContentsDAOInter 패키지에 등록된 interface 명시,
+      패키지명과 인터페이스명은 실제로 존재해야함,
+      Spring이 내부적으로 자동으로 interface를 구현해줌. -->
+<mapper namespace="mvc.vga.contents.ContentsDAOInter">
+  <!-- 답변형이 아닌 경우 --> 
+<!--   <insert id="create" parameterType="ContentsVO">
+    등록후 ContentsVO class의 contentsno 컬럼에 PK return 
+    <selectKey keyProperty="contentsno" resultType="int" order="BEFORE">
+      SELECT contents_seq.nextval FROM dual
+    </selectKey>
+    INSERT INTO contents(contentsno, memberno, cateno, title, content, web, ip,
+                                     passwd, word, rdate, file1, thumb1, size1)
+    VALUES(#{contentsno}, #{memberno}, #{cateno}, #{title}, #{content}, #{web}, #{ip},
+                #{passwd}, #{word}, sysdate, #{file1}, #{thumb1}, #{size1})
+  </insert> -->
+
+   <!-- 답변형인 경우 등록, 등록후 ContentsVO class의 contentsno 컬럼에 PK return --> 
+  <insert id="create" parameterType="ContentsVO">
+     <selectKey keyProperty="contentsno" resultType="int" order="BEFORE">
+      SELECT contents_seq.nextval FROM dual
+    </selectKey>
+    INSERT INTO contents(contentsno, memberno, cateno, title, content, web, ip,
+                                     passwd, word, rdate, file1, thumb1, size1,
+                                     grpno, indent, ansnum)
+    VALUES(#{contentsno}, #{memberno}, #{cateno}, #{title}, #{content}, #{web}, #{ip},
+                #{passwd}, #{word}, sysdate, #{file1}, #{thumb1}, #{size1},
+                (SELECT NVL(MAX(grpno), 0) + 1 FROM contents), 0, 0)
+  </insert>
+
+  <select id="list_all" resultType="ContentsVO">
+    SELECT contentsno, memberno, cateno, title, content, web, ip, passwd, word, rdate 
+    FROM contents 
+    ORDER BY contentsno DESC
+  </select>  
+
+  <!-- cateno별 목록 -->
+  <select id="list" resultType="ContentsVO" parameterType="int">
+    SELECT contentsno, memberno, cateno, title, content, web, ip, passwd, word, rdate 
+    FROM contents 
+    WHERE cateno = #{cateno}
+    ORDER BY contentsno DESC
+  </select>  
+
+  <!-- 카테고리별 검색 목록 -->
+   <select id="list_by_cateno_search" resultType="ContentsVO" parameterType="HashMap">
+     SELECT contentsno, memberno, cateno, title, content, 
+           recom, cnt, replycnt, rdate, word
+     FROM contents
+     <choose>
+       <when test="word == null or word == ''"> <!-- 검색하지 않는 경우 -->
+         WHERE cateno=#{cateno}
+       </when>
+       <otherwise>
+         WHERE cateno=#{cateno} AND (title LIKE '%' || #{word} || '%' 
+                                                        OR content LIKE '%' || #{word} || '%' 
+                                                        OR word LIKE '%' || #{word} || '%')
+       </otherwise>
+     </choose>
+     ORDER BY contentsno DESC   
+   </select>
+   
+   <!-- 카테고리별 검색 목록 + 페이징 + 메인 이미지 -->
+<!--    <select id="list_by_cateno_search_paging" 
+              resultType="ContentsVO" parameterType="HashMap">
+     SELECT contentsno, memberno, cateno, title, content, 
+                recom, cnt, replycnt, rdate, word, ip, file1, thumb1, size1, r
+     FROM (
+                SELECT contentsno, memberno, cateno, title, content, 
+                           recom, cnt, replycnt, rdate, word, ip, file1, thumb1, size1, rownum as r
+                FROM (
+                          SELECT contentsno, memberno, cateno, title, content, 
+                                     recom, cnt, replycnt, rdate, word, ip, file1, thumb1, size1
+                          FROM contents
+                          <choose>
+                            <when test="word == null or word == ''"> 검색하지 않는 경우
+                              WHERE cateno=#{cateno}
+                            </when>
+                            <otherwise>
+                              WHERE cateno=#{cateno} AND (title LIKE '%' || #{word} || '%' 
+                                                        OR content LIKE '%' || #{word} || '%' 
+                                                        OR word LIKE '%' || #{word} || '%')
+                            </otherwise>
+                          </choose>
+                          ORDER BY grpno DESC, ansnum ASC
+                )
+     )
+     WHERE <![CDATA[ r >= #{startNum} AND r <= #{endNum} ]]>
+     
+     1 page: WHERE r >= 1 AND r <= 10; 
+     2 page: WHERE r >= 11 AND r <= 20;
+     3 page: WHERE r >= 21 AND r <= 30;
+                              
+   </select>    -->
+      
+   <!-- 카테고리별 검색 목록 + 페이징 + 메인 이미지 + 답변형 -->
+   <select id="list_by_cateno_search_paging" 
+              resultType="ContentsVO" parameterType="HashMap">
+     SELECT contentsno, memberno, cateno, title, content, recom, cnt, replycnt, rdate, word, ip,
+                file1, thumb1, size1,
+                grpno, indent, ansnum, r
+     FROM (
+                SELECT contentsno, memberno, cateno, title, content, recom, cnt, replycnt, rdate, word, ip,
+                file1, thumb1, size1,
+                grpno, indent, ansnum, rownum as r
+                FROM (
+                          SELECT contentsno, memberno, cateno, title, content, recom, cnt, replycnt, rdate, word, ip,
+                                     file1, thumb1, size1,
+                                     grpno, indent, ansnum
+                          FROM contents
+                          <choose>
+                            <when test="word == null or word == ''"> 
+                              WHERE cateno=#{cateno}
+                            </when>
+                            <otherwise>
+                              WHERE cateno=#{cateno} AND (title LIKE '%' || #{word} || '%' 
+                                                        OR content LIKE '%' || #{word} || '%' 
+                                                        OR word LIKE '%' || #{word} || '%')
+                            </otherwise>
+                          </choose>
+                          ORDER BY grpno DESC, ansnum ASC
+                )
+     )
+     WHERE <![CDATA[ r >= #{startNum} AND r <= #{endNum} ]]>
+   </select> 
+
+  <!--  일반적인 조회 -->
+  <!--   <select id="read" resultType="ContentsVO" parameterType="int">
+    SELECT contentsno, memberno, cateno, title, content, recom, web, map, youtube, mp3, mp4, ip, passwd, word, rdate 
+    FROM contents
+    WHERE contentsno = #{contentsno}
+  </select> -->
+
+  <!--  일반적인 조회 + 답변형 -->
+  <select id="read" resultType="ContentsVO" parameterType="int">
+    SELECT contentsno, memberno, cateno, title, content, recom, web,
+               map, youtube, mp3, mp4, ip, passwd, word, rdate,
+               file1, thumb1, size1, grpno, indent, ansnum
+    FROM contents
+    WHERE contentsno = #{contentsno}
+  </select>
+
+  
+  <update id="update" parameterType="ContentsVO">
+    UPDATE contents 
+    SET title=#{title}, content=#{content}, web=#{web}, word=#{word}
+    WHERE contentsno = #{contentsno}
+  </update>
+  
+  <!-- 패스워드 검사 -->
+  <select id="passwd_check" parameterType="HashMap" resultType="int">
+    SELECT COUNT(*) as passwd_cnt
+    FROM contents
+    WHERE contentsno=#{contentsno} AND passwd=#{passwd}
+  </select>
+  
+  <delete id="delete" parameterType="int">
+    DELETE FROM contents
+    WHERE contentsno=#{contentsno}
+  </delete>
+  
+  <select id="total_count" resultType="int">
+    SELECT COUNT(*) as cnt
+    FROM contents 
+  </select>
+  
+   <!-- 카테고리별 검색 레코드 갯수 -->
+   <select id="search_count" resultType="int" parameterType="HashMap">
+     SELECT COUNT(*) as cnt
+     FROM contents
+     <choose>
+       <when test="word == null or word == ''">
+         WHERE cateno=#{cateno}
+       </when>
+       <otherwise>
+         WHERE cateno=#{cateno} AND (title LIKE '%' || #{word} || '%' 
+                                                        OR content LIKE '%' || #{word} || '%' 
+                                                        OR word LIKE '%' || #{word} || '%')
+       </otherwise>
+     </choose>
+   </select>       
+  
+  <resultMap type="Cate_Contents_VO" id="Cate_Contents_VO_Map">
+    <result column="c_cateno" property="cateno" />
+    <result column="c_name" property="name" />
+    <result column="c_rdate" property="cate_rdate" />
+    <result column="t_contentsno" property="contentsno" />
+    <result column="t_title" property="title" />
+    <result column="t_web" property="web" />
+    <result column="t_ip" property="ip" />
+    <result column="t_rdate" property="rdate" />
+  </resultMap>
+  
+  <select id="cate_contents_memberno_list" parameterType="int" resultMap="Cate_Contents_VO_Map">
+    SELECT c.cateno as c_cateno, c.name as c_name, c.rdate as c_rdate,
+               t.contentsno as t_contentsno, t.title as t_title, t.web as t_web, t.ip as t_ip, t.rdate as t_rdate        
+    FROM cate c, contents t, member m
+    WHERE c.cateno = t.cateno AND t.memberno = m.memberno AND m.memberno = #{memberno}
+    ORDER BY c.cateno ASC, t.contentsno DESC
+  </select>
+  
+  <!-- Map 등록, 수정, 삭제 -->
+  <update id="map" parameterType="HashMap">
+    UPDATE contents
+    SET map=#{map}
+    WHERE contentsno=#{contentsno} AND passwd=#{passwd}
+  </update>
+
+  <!-- Youtube 등록, 수정, 삭제 -->
+  <update id="youtube" parameterType="HashMap">
+    UPDATE contents
+    SET youtube=#{youtube}
+    WHERE contentsno=#{contentsno} AND passwd=#{passwd}
+  </update>
+
+  <!-- MP3 등록, 수정, 삭제 -->
+  <update id="mp3" parameterType="HashMap">
+    UPDATE contents
+    SET mp3=#{mp3}
+    WHERE contentsno=#{contentsno} AND passwd=#{passwd}
+  </update>
+
+  <!-- MP4 등록, 수정, 삭제 -->
+  <update id="mp4" parameterType="HashMap">
+    UPDATE contents
+    SET mp4=#{mp4}
+    WHERE contentsno=#{contentsno} AND passwd=#{passwd}
+  </update>
+  
+  <!-- 답변을 붙이려는 부모글의 자식들을 모두 답변 순서 1 증가 -->
+  <update id="increaseAnsnum" parameterType="HashMap">
+    UPDATE contents
+    SET ansnum = ansnum + 1
+    WHERE grpno = #{grpno} AND ansnum > #{ansnum}  
+  </update>
+
+  <!-- 답변 -->
+  <insert id="reply" parameterType="ContentsVO">
+    <selectKey keyProperty="contentsno" resultType="int" order="BEFORE">
+      SELECT contents_seq.nextval FROM dual
+    </selectKey>
+    INSERT INTO contents(contentsno,
+                      cateno, memberno, title, content, web, ip, passwd,
+                      thumb1, file1, size1,
+                      cnt, rdate, word, grpno, indent, ansnum)  
+    VALUES(#{contentsno},
+                #{cateno}, #{memberno}, #{title}, #{content}, #{web}, #{ip}, #{passwd},
+                #{thumb1}, #{file1}, #{size1},
+                #{cnt}, sysdate, #{word}, #{grpno}, #{indent}, #{ansnum})
+  </insert>
+
+   <update id="increaseReplycnt" parameterType="int">
+     UPDATE contents
+     SET replycnt = replycnt + 1
+     WHERE contentsno = #{contentsno}
+   </update>
+
+   <update id="decreaseReplycnt" parameterType="int">
+     UPDATE contents
+     SET replycnt = replycnt + 1
+     WHERE contentsno = #{contentsno}
+   </update>
+             
+</mapper>
+
+
+
+
+
+
+
+ 
+ 

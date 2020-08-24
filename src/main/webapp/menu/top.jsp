@@ -17,7 +17,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">vga-Blog</a>
+                <a class="navbar-brand page-scroll" href="${root }/index.jsp">vgaBlog</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -27,19 +27,35 @@
                         <a href="#page-top"></a>
                     </li>
                     <li class="">
-                        <a class="page-scroll" href="#services">Services</a>
+                        <a class="page-scroll" href="${root }/index.jsp#values">values</a>
                     </li>
                     <li class="">
-                        <a class="page-scroll" href="#portfolio">Portfolio</a>
+                        <a class="page-scroll" href="${root }/index.jsp#portfolio">category</a>
                     </li>
                     <li class="">
-                        <a class="page-scroll" href="#about">About</a>
+                          <c:choose>
+					        <%-- 로그인 안한 경우 --%>
+					        <c:when test="${sessionScope.mem_id == null && sessionScope.id_admin == null}">
+					          <A class='menu_link'  href='${root}/loginmode.jsp'>로그인</A><span class='top_menu_sep'>&nbsp;</span>    
+					        </c:when>
+					        <%-- 회원 로그인 한 경우 --%>
+					        <c:when test="${sessionScope.mem_id != null}">
+					          <A class='menu_link'  href='${root}/mem/logout.do'>${sessionScope.mem_id } 로그아웃</A><span class='top_menu_sep'>&nbsp;</span>    
+					        </c:when>
+					        <%-- 관리자 로그인 한 경우 --%>
+					        <c:when test="${sessionScope.id_admin != null}">
+					          <A class='menu_link'  href='${root}/admin/logout.do'>${sessionScope.id_admin } 로그아웃</A><span class='top_menu_sep'>&nbsp;</span>    
+					        </c:when>
+					      </c:choose> 
                     </li>
                     <li class="">
-                        <a class="page-scroll" href="#team">Team</a>
+                        <a class="page-scroll" href="${root }/index.jsp#about">About</a>
                     </li>
                     <li class="">
-                        <a class="page-scroll" href="#contact">Contact</a>
+                        <a class="page-scroll" href="${root }/index.jsp#team">Team</a>
+                    </li>
+                    <li class="">
+                        <a class="page-scroll" href="${root }/index.jsp#contact">Contact</a>
                     </li>
                 </ul>
             </div>
@@ -48,6 +64,6 @@
         <!-- /.container-fluid -->
     </nav>
    </DIV>
-
+</DIV>
    
    

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "mvc.vga.attachfile.AttachfileDAOInter">
+  <insert id="create" parameterType="AttachfileVO">
+    INSERT INTO attachfile(attachfileno, contentsno, fname, fupname, thumb, fsize, rdate)
+    VALUES(attachfile_seq.nextval, #{contentsno}, #{fname}, #{fupname}, #{thumb}, #{fsize}, sysdate)
+  </insert>
+  
+  <select id="list" resultType="AttachfileVO">
+    SELECT attachfileno, contentsno, fname, fupname, thumb, fsize, rdate
+    FROM attachfile
+    ORDER BY contentsno DESC,  attachfileno ASC
+  </select>
+  
+  <delete id="delete" parameterType="int">
+    DELETE FROM attachfile
+    WHERE attachfileno = #{attachfileno}    
+  </delete>
+  
+  <select id="read" resultType="AttachfileVO" parameterType="int">
+    SELECT attachfileno, contentsno, fname, fupname, thumb, fsize, rdate
+    FROM attachfile
+    WHERE attachfileno=#{attachfileno}  
+  </select>
+
+  <select id="list_by_contentsno" resultType="AttachfileVO" parameterType="int">
+    SELECT attachfileno, contentsno, fname, fupname, thumb, fsize, rdate
+    FROM attachfile
+    WHERE contentsno=#{contentsno}
+  </select>
+  
+</mapper> 
+
+
+
+
+
+
+
+
+

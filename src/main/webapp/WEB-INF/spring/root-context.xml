@@ -3,6 +3,39 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
+<!-- Oracle Connection Pool, 안정적인 데이터베이스 연결 지원, MyBATIS 사용 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:XE" />
+		<property name="username" value="blog" />
+		<property name="password" value="1212" />
+	</bean>
+
+	<!-- typeAliasesPackage: MyBATIS에서 클래스 사용시 패키지 생략 가능, mapperLocations: MyBATIS 설정 파일인 xml의 위치 등록 -->
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- 아래부분은 매핑할 xml파일이 있는 패키지경로를 설정한다. -->
+		<property name="typeAliasesPackage" 
+					value="mvc.vga.tool,
+                           mvc.vga.mem,
+                           mvc.vga.categrp,
+                           mvc.vga.cate,
+                           mvc.vga.contents,
+                           mvc.vga.attachfile,
+                            " />
+		<property name="mapperLocations" value="classpath:mybatis/*.xml" />
+	</bean>
+
+	<!-- Spring이 MyBATIS를 사용할 때 호출하는 객체 -->
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+
+	<!-- DAO Interface 스캔 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="mvc.vga" />
+	</bean>
 
 		
 </beans>

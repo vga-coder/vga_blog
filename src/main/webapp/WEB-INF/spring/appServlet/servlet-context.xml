@@ -23,6 +23,13 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="mvc.vga.blog" />
+	<context:component-scan base-package="mvc.vga.tool" />
+	<context:component-scan base-package="mvc.vga.mem" />
+	<context:component-scan base-package="mvc.vga.admin" />
+	<context:component-scan base-package="mvc.vga.categrp" />
+	<context:component-scan base-package="mvc.vga.cate" />
+	<context:component-scan base-package="mvc.vga.contents" />
+	<context:component-scan base-package="mvc.vga.attachfile" />
 	
 	
 	

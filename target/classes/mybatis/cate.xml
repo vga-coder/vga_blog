@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<!-- dev.mvc.cate.CateDAOInter 패키지에 등록된 interface 명시,
+      패키지명과 인터페이스명은 실제로 존재해야함,
+      Spring이 내부적으로 자동으로 interface를 구현해줌. -->
+<mapper namespace="mvc.vga.cate.CateDAOInter"> 
+  <insert id="create" parameterType="CateVO">
+    INSERT INTO cate(cateno, categrpno, name, seqno, visible, rdate, cnt)
+    VALUES(cate_seq.nextval, #{categrpno}, #{name}, #{seqno}, #{visible}, sysdate, 0)
+  </insert>
+
+  <!-- 출력 순서 오름차순 전체 목록 -->
+  <select id="list_seqno_asc" resultType="CateVO">
+    SELECT cateno, categrpno, name, seqno, visible, rdate, cnt
+    FROM cate
+    ORDER BY categrpno ASC, seqno ASC
+  </select>
+  
+  <!-- 조회, id: read, 입력: cateno, 리턴: CateVO -->
+  <select id="read" resultType="CateVO" parameterType="int">
+    SELECT cateno, categrpno, name, seqno, visible, rdate, cnt
+    FROM cate
+    WHERE cateno=#{cateno}
+  </select>  
+  
+  <update id="update" parameterType="CateVO">
+    UPDATE cate
+    SET categrpno=#{categrpno}, name=#{name}, seqno=#{seqno}, visible=#{visible}, cnt=#{cnt}
+    WHERE cateno = #{cateno}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+    DELETE FROM cate
+    WHERE cateno = #{cateno}
+  </delete>
+
+  <!-- 출력 순서 상향, 10 ▷ 1 -->
+  <update id="update_seqno_up" parameterType="int">
+    UPDATE cate
+    SET seqno = seqno - 1
+    WHERE cateno=#{cateno}
+  </update>
+
+  <!-- 출력순서 하향, 1 ▷ 10 --> 
+  <update id="update_seqno_down" parameterType="int">
+    UPDATE cate
+    SET seqno=seqno + 1
+    WHERE cateno=#{cateno}
+  </update>
+  
+  <!-- 출력 모드의 변경
+        수정, id: update_visible, 입력: CateVO, 리턴: int -->
+  <update id="update_visible" parameterType="CateVO">
+    UPDATE cate
+    SET visible=#{visible}
+    WHERE cateno=#{cateno}
+  </update>
+
+  <!-- categrp + cate inner join,  1 : 다, 통합 VO -->
+  <select id="list_join" resultType="Categrp_Cate_join">
+    SELECT r.categrpno as r_categrpno, r.name as r_name,
+               c.cateno, c.categrpno, c.name, c.seqno, c.visible, c.rdate, c.cnt
+    FROM categrp r, cate c
+    WHERE r.categrpno = c.categrpno
+    ORDER BY r.categrpno ASC, c.seqno ASC
+  </select>
+    
+  <!-- categrpno 별 cate 목록: categrp + cate inner join,  1 : 다, 통합 VO -->
+  <select id="list_join_by_categrpno" resultType="Categrp_Cate_join" parameterType="int">
+    SELECT r.categrpno as r_categrpno, r.name as r_name,
+               c.cateno, c.categrpno, c.name, c.seqno, c.visible, c.rdate, c.cnt
+    FROM categrp r, cate c
+    WHERE (r.categrpno = c.categrpno) AND r.categrpno=#{categrpno}
+    ORDER BY r.categrpno ASC, c.seqno ASC
+  </select>
+
+  <!-- 실제의 컬럼을 어떤 자바 변수와 대응 시킬것인지 선언, 
+        일반적으로 DBMS 컬럼명과 VO class 변수명이 다를때 사용 -->
+  <resultMap type="Categrp_Cate_VO" id="Categrp_Cate_VO_Map">
+    <association property="categrpVO" javaType="CategrpVO">
+      <result column="r_categrpno" property="categrpno" />
+      <result column="r_name" property="name" />
+    </association>
+    <association property="cateVO" javaType="CateVO">
+      <result column="c_cateno" property="cateno" />
+      <result column="c_categrpno" property="categrpno" />
+      <result column="c_name" property="name" />
+      <result column="c_seqno" property="seqno" />
+      <result column="c_visible" property="visible" />
+      <result column="c_rdate" property="rdate" />
+      <result column="c_cnt" property="cnt" />                        
+    </association>
+  </resultMap>
+
+  <!-- 참고 1) categrp + cate inner join,  1 : 다 -->
+  <select id="list_all" resultMap="Categrp_Cate_VO_Map">
+    SELECT r.categrpno as r_categrpno, r.name as r_name,
+               c.cateno as c_cateno, c.categrpno as c_categrpno, c.name as c_name,
+               c.seqno as c_seqno, c.visible as c_visible, c.rdate as c_rdate, c.cnt as c_cnt
+    FROM categrp r, cate c
+    WHERE r.categrpno = c.categrpno
+    ORDER BY r.categrpno ASC, c.seqno ASC
+  </select>
+    
+  <resultMap type="Categrp_Cate_VO_list" id="Categrp_Cate_VO_list_Map">
+    <result column="categrpno" property="categrpno" />
+    <result column="name" property="name" />
+    <result column="seqno" property="seqno" />
+    <result column="visible" property="visible" />
+    <result column="rdate" property="rdate" />
+    <collection property="cate_list" javaType="java.util.List"
+      column="categrpno" select="list_seqno_asc_by_categrpno">
+    </collection>
+    
+  </resultMap>
+
+  <!-- 참고 2) 조회, id: read, 입력: categrpno, 리턴: CategrpVO -->
+  <select id="list_by_categrpno" resultMap="Categrp_Cate_VO_list_Map"  
+                                             parameterType="int">
+    SELECT  categrpno, name, seqno, visible, rdate
+    FROM categrp
+    WHERE categrpno=#{categrpno}
+  </select>
+
+  <!-- 출력 순서 오름차순 전체 목록 -->
+  <select id="list_seqno_asc_by_categrpno" resultType="CateVO" parameterType="int">
+    SELECT cateno, categrpno, name, seqno, visible, rdate, cnt
+    FROM cate
+    WHERE categrpno=#{categrpno}
+    ORDER BY seqno ASC
+  </select>
+
+  <update id="increaseCnt" parameterType="int">
+    UPDATE cate 
+    SET cnt = cnt + 1 
+    WHERE cateno=#{cateno}
+  </update>
+
+  <update id="decreaseCnt" parameterType="int">
+    UPDATE cate 
+    SET cnt = cnt - 1 
+    WHERE cateno=#{cateno}
+  </update>
+            
+</mapper>
+
+
+
+
+
+
+
+

@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
-<title>vga-blog</title>
+<title>vgaBlog</title>
 <link href="./css/style.css" rel='Stylesheet' type='text/css'>
  
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -38,26 +38,26 @@ $('.navbar-collapse ul li a').click(function() {
 </script>    
 </head>
 <body>
-<jsp:include page="/menu/top.jsp" flush='false' />
+<jsp:include page="/menu/top2.jsp" flush='false' />
   
     <!-- Header -->
     <header>
         <div class="container">
             <div class="intro-text">
-                <div class="intro-lead-in">당신만의 책을 만들어보세요.</div>
-                <div class="intro-heading">It's your book</div>
-                <a href="#services" class="page-scroll btn btn-xl">let's go</a>
+                <div class="intro-lead-in">당신의 취미를 공유해주세요.</div>
+                <div class="intro-heading">What's ur hobby?</div>
+                <a href="./loginmode.jsp" class="page-scroll btn btn-xl">let's go</a>
             </div>
         </div>
     </header>
 
     <!-- Services Section -->
-    <section id="services">
+    <section id="values">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Services</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h2 class="section-heading">The value of sharing hobby!</h2>
+                    <h3 class="section-subheading text-muted">무언가 몰두할 수 있는 취미를 가진다는 것<br><br>그리고 공유한다는 것</h3>
                 </div>
             </div>
             <div class="row text-center">
@@ -66,24 +66,24 @@ $('.navbar-collapse ul li a').click(function() {
                         <i class="fa fa-circle fa-stack-2x text-primary"></i>
                         <i class="glyphicon glyphicon-tree-conifer"></i>
                     </span>
-                    <h4 class="service-heading">Here is a pokok</h4>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                    <h4 class="service-heading">가치 창출</h4>
+                    <p class="text-muted">당신이 가진 취미와 재능을 소개하고 그것을<br>필요로하는 사람들에게 공유하세요.</p>
                 </div>
                 <div class="col-md-4">
                     <span class="fa-stack fa-4x">
                         <i class="fa fa-circle fa-stack-2x text-primary"></i>
                         <i class="glyphicon glyphicon-heart"></i>
                     </span>
-                    <h4 class="service-heading">Here's a heart</h4>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                    <h4 class="service-heading">소통</h4>
+                    <p class="text-muted">다른 사람들은 어떤 취미 생활을 가졌으며,<br>어떻게 취미 생활을 하고있는지 들어보세요.</p>
                 </div>
                 <div class="col-md-4">
                     <span class="fa-stack fa-4x">
                         <i class="fa fa-circle fa-stack-2x text-primary"></i>
                         <i class="glyphicon glyphicon-tint"></i>
                     </span>
-                    <h4 class="service-heading">Waterfall maybe?</h4>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                    <h4 class="service-heading">도전</h4>
+                    <p class="text-muted">반복되는 일상에서 새로운 배움에 부딪혀<br>당신의 삶을 더욱 풍요롭게 만들어보세요.</p>
                 </div>
             </div>
         </div>
@@ -94,10 +94,11 @@ $('.navbar-collapse ul li a').click(function() {
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Portfolio</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h2 class="section-heading">Category</h2>
+                    <h3 class="section-subheading text-muted">look around</h3>
                 </div>
             </div>
+            
             <div class="row">
                 <div class="col-md-4 col-sm-6 portfolio-item">
                     <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
@@ -109,8 +110,8 @@ $('.navbar-collapse ul li a').click(function() {
                         <img src="https://unsplash.imgix.net/uploads%2F1411419068566071cef10%2F7562527b?q=75&w=1080&h=1080&fit=max&fm=jpg&auto=format&s=240c45655f09c546232a6f106688e502" class="img-responsive" alt="">
                     </a>
                     <div class="portfolio-caption">
-                        <h4>Round Icons</h4>
-                        <p class="text-muted">Graphic Design</p>
+                        <h4>여행</h4>
+                        <p class="text-muted">travel</p>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6 portfolio-item">
@@ -123,8 +124,8 @@ $('.navbar-collapse ul li a').click(function() {
                         <img src="https://unsplash.imgix.net/44/9s1lvXLlSbCX5l3ZaYWP_hdr-1.jpg?q=75&w=1080&h=1080&fit=max&fm=jpg&auto=format&s=f0a1db79752dbb04ec6d2aab7d17c7b0" class="img-responsive" alt="">
                     </a>
                     <div class="portfolio-caption">
-                        <h4>Startup Framework</h4>
-                        <p class="text-muted">Website Design</p>
+                        <h4>음악</h4>
+                        <p class="text-muted">music</p>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6 portfolio-item">
@@ -137,8 +138,8 @@ $('.navbar-collapse ul li a').click(function() {
                         <img src="https://unsplash.imgix.net/46/Ov6ZY1zLTWmhPC0wFysP_IMG_2896_edt.jpg?q=75&w=1080&h=1080&fit=max&fm=jpg&auto=format&s=6518e4df89659818f6c0392175a9c5e6" class="img-responsive" alt="">
                     </a>
                     <div class="portfolio-caption">
-                        <h4>Treehouse</h4>
-                        <p class="text-muted">Website Design</p>
+                        <h4>사진</h4>
+                        <p class="text-muted">photo</p>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6 portfolio-item">
@@ -151,8 +152,8 @@ $('.navbar-collapse ul li a').click(function() {
                         <img src="https://unsplash.imgix.net/44/9s1lvXLlSbCX5l3ZaYWP_hdr-1.jpg?q=75&w=1080&h=1080&fit=max&fm=jpg&auto=format&s=f0a1db79752dbb04ec6d2aab7d17c7b0" class="img-responsive" alt="">
                     </a>
                     <div class="portfolio-caption">
-                        <h4>Golden</h4>
-                        <p class="text-muted">Website Design</p>
+                        <h4>운동</h4>
+                        <p class="text-muted">exercise</p>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6 portfolio-item">
@@ -165,8 +166,8 @@ $('.navbar-collapse ul li a').click(function() {
                         <img src="https://unsplash.imgix.net/46/Ov6ZY1zLTWmhPC0wFysP_IMG_2896_edt.jpg?q=75&w=1080&h=1080&fit=max&fm=jpg&auto=format&s=6518e4df89659818f6c0392175a9c5e6" class="img-responsive" alt="">
                     </a>
                     <div class="portfolio-caption">
-                        <h4>Escape</h4>
-                        <p class="text-muted">Website Design</p>
+                        <h4>독서</h4>
+                        <p class="text-muted">book</p>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-6 portfolio-item">
@@ -179,8 +180,8 @@ $('.navbar-collapse ul li a').click(function() {
                         <img src="https://unsplash.imgix.net/uploads%2F1411419068566071cef10%2F7562527b?q=75&w=1080&h=1080&fit=max&fm=jpg&auto=format&s=240c45655f09c546232a6f106688e502" class="img-responsive" alt="">
                     </a>
                     <div class="portfolio-caption">
-                        <h4>Dreams</h4>
-                        <p class="text-muted">Website Design</p>
+                        <h4>공부</h4>
+                        <p class="text-muted">study</p>
                     </div>
                 </div>
             </div>
