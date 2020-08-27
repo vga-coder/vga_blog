@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
-<title>Resort world</title>
+<title>vgaBlog</title>
  
 <link href="../css/style.css" rel="Stylesheet" type="text/css">
  
@@ -19,6 +19,7 @@
  
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
+  <div style="margin:100px auto; width:80%; text-align:center"> 
 
   <DIV class='title_line'>
     <A href="../categrp/list.do">카테고리 그룹</A> > 
@@ -66,7 +67,7 @@
             <td>
               <a href="./read.do?contentsno=${contentsno}">${contentsVO.title}</a> 
             </td> 
-            <td style='text-align: center;'>${contentsVO.memberno}</td>
+            <td style='text-align: center;'>${contentsVO.memno}</td>
             <td style='text-align: center;'>${contentsVO.ip}</td>
           </tr>
         </c:forEach>
@@ -75,7 +76,7 @@
     </table>
     <br><br>
   </div>
- 
+</div>
 <jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>
  

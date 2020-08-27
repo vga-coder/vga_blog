@@ -62,9 +62,7 @@ public class AttachfileCont {
                                            int cateno) {
     
     ModelAndView mav = new ModelAndView();
-    // -----------------------------------------------------
-    // 파일 전송 코드 시작
-    // -----------------------------------------------------
+
     int contentsno = attachfileVO.getContentsno(); // 부모글 번호
     String fname = ""; // 원본 파일명
     String fupname = ""; // 업로드된 파일명
@@ -95,23 +93,13 @@ public class AttachfileCont {
         vo.setFupname(fupname);
         vo.setThumb(thumb);
         vo.setFsize(fsize);
-        
+       
         upload_count = upload_count + attachfileProc.create(vo); // 파일 1건 등록 정도 dbms 저장
       }
     }    
-    // -----------------------------------------------------
-    // 파일 전송 코드 종료
-    // -----------------------------------------------------
-    
-    // ra.addAttribute("upload_count", upload_count);
-    // ra.addAttribute("categrpno", categrpno);
-    // ra.addAttribute("contentsno", attachfileVO.getContentsno());
-    
     mav.addObject("upload_count", upload_count);
-    // mav.addObject("cateno", cateno);
     mav.addObject("contentsno", attachfileVO.getContentsno());
     
-    // mav.setViewName("/attachfile/create_msg"); // /attachfile/create_msg.jsp
     mav.setViewName("redirect:/attachfile/create_msg.jsp");
     return mav;
   }

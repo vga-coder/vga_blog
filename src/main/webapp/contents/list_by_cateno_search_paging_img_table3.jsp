@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
-<title>Resort world</title>
+<title>vgaBlog</title>
  
 <link href="../css/style.css" rel="Stylesheet" type="text/css">
  
@@ -19,9 +19,10 @@
  
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
+<div style="margin:100px auto; width:80%; text-align:center">
 
-  <DIV class='title_line'>
-    ${cateVO.name }
+  <DIV class='title_line'><br>
+   <h1> ${cateVO.name }</h1><br>
   </DIV>
 
   <form name='frm' id='frm' method='get' action='./list.do'>
@@ -39,7 +40,7 @@
       </c:choose>    
     </ASIDE>
     <ASIDE style='float: right;'>
-      <c:if test="${sessionScope.id != null or sessionScope.id_admin != null}">
+      <c:if test="${sessionScope.mem_id != null or sessionScope.id_admin != null}">
         <A href="./create.do?cateno=${cateVO.cateno }">등록</A>
       </c:if>
     
@@ -92,19 +93,27 @@
           <c:set var="contentsno" value="${contentsVO.contentsno }" />
           <c:set var="title" value="${contentsVO.title }" />
           <c:set var="content" value="${contentsVO.content }" />
-          <c:set var="thumb1" value="${contentsVO.thumb1.toLowerCase() }" />
+          <c:set var="thumb1" value="${contentsVO.thumb1 }" />
           <c:set var="grpno" value="${contentsVO.grpno }" />
           <c:set var="indent" value="${contentsVO.indent }" />
           <c:set var="ansnum" value="${contentsVO.ansnum }" />
           <c:set var="cnt" value="${contentsVO.cnt }" />
           
-          <tr style='height: 90px;'> 
-            <td style='vertical-align: middle; text-align: center;'>${contentsVO.rdate.substring(0, 10)}</td>
+          <tr style='height: 90px;'>
+            <td style='vertical-align: middle; text-align: center;'>
+            <c:choose>
+            <c:when test="${ansnum > 0 }"> <%-- 자식글 아이콘 출력, 들여 쓰기 --%>
+                <img src='./images/white.png' style='width: ${indent * 20}px; height: 40px; opacity: 0.0;'>
+                <img src='./images/reply3.png'>
+            </c:when>
+            </c:choose>
+            ${contentsVO.rdate.substring(0, 10)}
+            </td>
             <td style='vertical-align: middle; text-align: center;'>
               <%-- grpno, indent, ansnum --%>
               <%-- ${contentsVO.grpno } / ${contentsVO.indent } / ${contentsVO.ansnum }  --%>
               <c:choose>
-                <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}">
+                <c:when test="${thumb1.toLowerCase().endsWith('jpg') || thumb1.toLowerCase().endsWith('png') || thumb1.toLowerCase().endsWith('gif') || thumb1.toLowerCase().endsWith('jpeg')}">
                   <IMG src="./storage/main_images/${thumb1 }" style='width: 120px; height: 80px;'> 
                 </c:when>
                 <c:otherwise> <!-- 이미지가 아닌 일반 파일 -->
@@ -117,17 +126,12 @@
                   <c:when test="${ansnum == 0 }"> <%-- 부모글인 경우 아이콘 출력 --%>
                       <img src='./images/ting1.png'>
                   </c:when>
-                  <c:when test="${ansnum > 0 }"> <%-- 자식글 아이콘 출력, 들여 쓰기 --%>
-                      <img src='./images/white.png' style='width: ${indent * 20}px; height: 40px; opacity: 0.0;'>
-                      <img src='./images/reply3.png'>
-                  </c:when>
               </c:choose>
               <span style='font-size: 1.2em; font-weight: bold;'>
                   <a href="./read.do?contentsno=${contentsno}">${title}</a>
               </span>
-              <a href="./read.do?contentsno=${contentsno}">${content}</a> (${cnt})      
             </td> 
-            <td style='vertical-align: middle; text-align: center;'>${contentsVO.memberno}</td>
+            <td style='vertical-align: middle; text-align: center;'>${contentsVO.memno}</td>
             <td style='vertical-align: middle; text-align: center;'>${contentsVO.ip}</td>
           </tr>
         </c:forEach>
@@ -137,7 +141,7 @@
     <DIV class='bottom_menu'>${paging }</DIV>
     <br><br>
   </div>
- 
+</div> 
 <jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>
  

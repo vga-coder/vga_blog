@@ -69,7 +69,7 @@ public interface ContentsDAOInter {
    * <select id="cate_contents_memberno_list" parameterType="int" resultMap="Cate_Contents_VO_Map">
    * </xmp>
    */
-  public List<Cate_Contents_VO> cate_contents_memberno_list(int memberno);
+  public List<Cate_Contents_VO> cate_contents_memberno_list(int memno);
 
   /**
    * 지도의 등록, 수정, 삭제

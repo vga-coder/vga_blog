@@ -29,7 +29,7 @@ public class ContentsVO {
   /** 컨텐츠 번호 */
   private int contentsno;
   /** 회원 번호 */
-  private int memberno;
+  private int memno;
   /** 카테고리 번호*/
   private int cateno;
   /** 제목 */
@@ -90,11 +90,11 @@ public class ContentsVO {
   public void setContentsno(int contentsno) {
     this.contentsno = contentsno;
   }
-  public int getMemberno() {
-    return memberno;
+  public int getMemno() {
+    return memno;
   }
-  public void setMemberno(int memberno) {
-    this.memberno = memberno;
+  public void setMemno(int memno) {
+    this.memno = memno;
   }
   public int getCateno() {
     return cateno;

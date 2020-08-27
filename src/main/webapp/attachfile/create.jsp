@@ -5,7 +5,7 @@
 <head> 
 <meta charset="UTF-8"> 
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
-<title>Resort world</title>
+<title>vgaBlog</title>
  
 <link href="../css/style.css" rel="Stylesheet" type="text/css">
  
@@ -18,6 +18,7 @@
  
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
+  <div style="margin:100px auto; width:80%; text-align:center">
 
   <DIV class='title_line'>
     첨부 파일
@@ -50,14 +51,14 @@
       <DIV class='content_bottom_menu'>
         <button type="submit" class="btn btn-info">파일 전송</button>
         <button type="button" 
-                    onclick="location.href='./list.do?cateno=${param.cateno}'" 
+                    onclick="location.href='../contents/read.do?contentsno=${param.contentsno}'" 
                     class="btn btn-info">취소[목록]</button>
       </DIV>
        
     </FORM>
   </DIV>
 
-  
+ </div> 
 <jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>
  

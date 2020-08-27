@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="root" value="${pageContext.request.contextPath}" /> 
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -101,7 +103,7 @@ $('.navbar-collapse ul li a').click(function() {
             
             <div class="row">
                 <div class="col-md-4 col-sm-6 portfolio-item">
-                    <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
+                    <a href="${root }/cate/list_by_categrpno.do?categrpno=1" class="portfolio-link" data-toggle="modal">
                         <div class="portfolio-hover">
                             <div class="portfolio-hover-content">
                                 <i class="fa fa-plus fa-3x"></i>
@@ -274,16 +276,16 @@ $('.navbar-collapse ul li a').click(function() {
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Our Amazing Team</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h2 class="section-heading">Kim ribeuga Developer</h2>
+                    <h3 class="section-subheading text-muted">가치있는 개발자 김리브가 입니다.</h3>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-4">
                     <div class="team-member">
                         <img src="http://www.mycatspace.com/wp-content/uploads/2013/08/adopting-a-cat.jpg" class="img-responsive img-circle" alt="">
-                        <h4>Kay Garland</h4>
-                        <p class="text-muted">Lead Designer</p>
+                        <h4>Learn</h4>
+                        <p class="text-muted">열심히 배우겠습니다.</p>
                         <ul class="list-inline social-buttons">
                             <li><a href="#"><i class="fa fa-twitter"></i></a>
                             </li>
@@ -297,8 +299,8 @@ $('.navbar-collapse ul li a').click(function() {
                 <div class="col-sm-4">
                     <div class="team-member">
                         <img src="http://www.mycatspace.com/wp-content/uploads/2013/08/adopting-a-cat.jpg" class="img-responsive img-circle" alt="">
-                        <h4>Larry Parker</h4>
-                        <p class="text-muted">Lead Marketer</p>
+                        <h4>DO</h4>
+                        <p class="text-muted">배운것은 반드시 제것으로 만들겠습니다.</p>
                         <ul class="list-inline social-buttons">
                             <li><a href="#"><i class="fa fa-twitter"></i></a>
                             </li>
@@ -312,8 +314,8 @@ $('.navbar-collapse ul li a').click(function() {
                 <div class="col-sm-4">
                     <div class="team-member">
                         <img src="http://www.mycatspace.com/wp-content/uploads/2013/08/adopting-a-cat.jpg" class="img-responsive img-circle" alt="">
-                        <h4>Diana Pertersen</h4>
-                        <p class="text-muted">Lead Developer</p>
+                        <h4>application</h4>
+                        <p class="text-muted">그리고 적용하겠습니다.</p>
                         <ul class="list-inline social-buttons">
                             <li><a href="#"><i class="fa fa-twitter"></i></a>
                             </li>
@@ -327,7 +329,9 @@ $('.navbar-collapse ul li a').click(function() {
             </div>
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <p class="large text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
+                    <p class="large text-muted">포춘 쿠키처럼, 쿠키를 먹으면서 안에 어떠한 이야기가 담겨 있을지
+												기대하게 함과 동시에 종이에 적혀있는 내용을 읽고
+												즐거움을 느낄 수 있도록 하는 개발을 하겠습니다.</p>
                 </div>
             </div>
         </div>
@@ -384,7 +388,7 @@ $('.navbar-collapse ul li a').click(function() {
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <span class="copyright">Copyright © Your Website 2014</span>
+                    <span class="copyright">Copyright © Your Website 2020</span>
                 </div>
                 <div class="col-md-4">
                     <ul class="list-inline social-buttons">

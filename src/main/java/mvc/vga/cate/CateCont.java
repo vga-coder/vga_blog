@@ -153,7 +153,7 @@ public class CateCont {
     Categrp_Cate_VO_list list = this.cateProc.list_by_categrpno(categrpno);
     mav.addObject("list", list); // request.setAttribute("list", list);
 
-    mav.setViewName("/cate/list_by_categrpno"); // webapp/cate/list_by_categrpno.jsp
+    mav.setViewName("/cate/index"); // webapp/cate/list_by_categrpno.jsp
     return mav;
   }
   

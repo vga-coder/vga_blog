@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "mvc.vga.reply.ReplyDAOInter">
+  <insert id="create" parameterType="ReplyVO">
+    <selectKey keyProperty="replyno" resultType="int" order="BEFORE">
+      SELECT reply_seq.nextval FROM dual
+    </selectKey>
+    
+    INSERT INTO reply(replyno, contentsno, memno, content, passwd, rdate)
+    VALUES(#{replyno}, #{contentsno}, #{memno}, #{content}, #{passwd}, sysdate)
+  </insert>
+  
+  <!-- 전체 목록 -->
+  <select id="list" resultType="ReplyVO">
+    SELECT replyno, contentsno, memno, content, passwd, rdate
+    FROM reply
+    ORDER BY replyno DESC
+  </select>
+
+  <select id="list_by_contentsno" resultType="ReplyVO" parameterType="int">
+    SELECT replyno, contentsno, memno, content, passwd, rdate
+    FROM reply
+    WHERE contentsno=#{contentsno}
+    ORDER BY replyno DESC
+  </select>
+
+  <select id="list_by_contentsno_join" resultType="ReplyMemberVO" parameterType="int">
+    SELECT m.mem_id,
+               r.replyno, r.contentsno, r.memno, r.content, r.passwd, r.rdate
+    FROM mem m,  reply r
+    WHERE (m.memno = r.memno) AND r.contentsno=#{contentsno}
+    ORDER BY r.replyno DESC
+  </select>
+  
+  <!-- <select id="checkPasswd" parameterType="HashMap" resultType="int"> -->
+  <!-- <select id="checkPasswd" parameterType="ReplyVO" resultType="int"> -->
+  <select id="checkPasswd" parameterType="Map" resultType="int">
+    SELECT COUNT(*) as cnt
+    FROM reply
+    WHERE replyno=#{replyno} AND passwd=#{passwd}
+  </select>
+  
+  <delete id="delete" parameterType="int">
+    DELETE FROM reply
+    WHERE replyno=#{replyno}
+  </delete>
+
+  <!-- 더보기 버튼 페이징 구현 -->
+  <select id="list_by_contentsno_join_add_view" resultType="ReplyMemberVO" 
+             parameterType="HashMap">
+    SELECT mem_id, replyno, contentsno, memno, content, passwd, rdate, r
+    FROM (
+            SELECT mem_id, replyno, contentsno, memno, content, passwd, rdate, rownum as r
+            FROM (
+                    SELECT m.mem_id,
+                               r.replyno, r.contentsno, r.memno, r.content, r.passwd, r.rdate
+                    FROM mem m,  reply r
+                    WHERE (m.memno = r.memno) AND r.contentsno=#{contentsno}
+                    ORDER BY r.replyno DESC
+            )
+    )
+    WHERE <![CDATA[ r >= #{startNum} AND r <= #{endNum} ]]>
+  </select>
+
+  <select id="read" resultType="ReplyMemberVO" parameterType="int">
+    SELECT m.mem_id,
+             r.replyno, r.contentsno, r.memno, r.content, r.passwd, r.rdate
+    FROM mem m,  reply r
+    WHERE (m.memno = r.memno) AND replyno=#{replyno}
+  </select>
+                     
+</mapper> 
+
+
+
+
+

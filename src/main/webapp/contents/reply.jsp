@@ -5,7 +5,7 @@
 <head> 
 <meta charset="UTF-8"> 
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
-<title>Resort world</title>
+<title>vgaBlog</title>
  
 <link href="../css/style.css" rel="Stylesheet" type="text/css">
  
@@ -27,6 +27,8 @@
  
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
+<div class="form" style="margin:100px auto; width:80%; text-align:center">
+
   <DIV class='title_line'>
     ${cateVO.name }
   </DIV>
@@ -45,7 +47,7 @@
                 enctype="multipart/form-data">
                
       <!-- FK memberno 지정 -->
-      <input type='hidden' name='memberno' id='memberno' value='${sessionScope.memberno }'>
+      <input type='hidden' name='memno' id='memno' value='${sessionScope.memno }'>
       <!-- FK categrpno 지정 -->
       <input type='hidden' name='cateno' id='cateno' value='${param.cateno }'>
       <%-- 댓글을 붙일 부모글 번호 --%>
@@ -99,7 +101,7 @@
     </FORM>
   </DIV>
 
-  
+</div>  
 <jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>
  

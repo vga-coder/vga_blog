@@ -39,7 +39,7 @@
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
 
-<div class="form" style="margin:20px auto; width:80%; text-align:center">
+<div class="form" style="margin:100px auto; width:80%; text-align:center">
 	<div style="font-size:20px;" class='title_line'>vgaBlog 프로필</div><br>
 
  

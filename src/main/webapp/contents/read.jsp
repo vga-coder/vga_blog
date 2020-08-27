@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
-<title>Resort world</title>
+<title>vgaBlog</title>
 
 <link href="../css/style.css" rel="Stylesheet" type="text/css">
 
@@ -14,6 +14,12 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+.li_none {
+    list-style: none;
+    margin: 15px 10px;
+}
+</style>
 <script type="text/javascript">
   $(function() { // 자동 실행
     list_by_contentsno_add_view()  // 댓글 목록 출력
@@ -21,8 +27,8 @@
     $('#btn_delete_youtube').on('click', youtube_delete_send); 
     $('#btn_create').on('click', reply_create);  // 댓글 등록
 
-    if ('${sessionScope.memberno}' != '') { // 로그인된 경우
-      // alert('sessionScope.memberno: ' + '${sessionScope.memberno}');
+    if ('${sessionScope.memno}' != '') { // 로그인된 경우
+      // alert('sessionScope.mem: ' + '${sessionScope.memberno}');
 
       var frm_reply = $('#frm_reply');
       $('#content', frm_reply).attr('placeholder', '댓글 작성');
@@ -116,7 +122,7 @@
     // alert('checkId() 호출됨: ' + params);
     // return;
     
-    if ($('#memberno', frm_reply).val().length == 0) {
+    if ($('#memno', frm_reply).val().length == 0) {
       $('#modal_title').html('댓글 등록'); // 제목 
       $('#modal_content').html("로그인해야 등록 할 수 있습니다."); // 내용
       $('#modal_panel').modal();            // 다이얼로그 출력
@@ -141,7 +147,6 @@
       dataType: "json",   // 응답 형식: json, xml, html...
       data: params,        // 서버로 전달하는 데이터
       success: function(rdata) { // 서버로부터 성공적으로 응답이 온경우
-        // alert(rdata);
         var msg = ""; // 메시지 출력
         var tag = ""; // 글목록 생성 태그
         
@@ -157,7 +162,7 @@
           tag += "<DIV id='"+row.replyno+"' style='border-bottom: solid 1px #EEEEEE; margin-bottom: 10px;'>";
           tag += "<span style='font-weight: bold;'>" + row.id + "</span>";
           tag += "  " + row.rdate;
-          if ('${sessionScope.memberno}' == row.memberno) { // 글쓴이 일치여부 확인
+          if ('${sessionScope.memno}' == row.memno) { // 글쓴이 일치여부 확인
             tag += " <A href='javascript:reply_delete("+row.replyno+")'><IMG src='./images/delete.png'></A>";
           }
           tag += "  " + "<br>";
@@ -208,7 +213,7 @@
           msg += "<DIV id='"+row.replyno+"' style='border-bottom: solid 1px #EEEEEE; margin-bottom: 10px;'>";
           msg += "<span style='font-weight: bold;'>" + row.id + "</span>";
           msg += "  " + row.rdate;
-          if ('${sessionScope.memberno}' == row.memberno) { // 글쓴이 일치여부 확인
+          if ('${sessionScope.memno}' == row.memno) { // 글쓴이 일치여부 확인
             msg += " <A href='javascript:reply_delete("+row.replyno+")'><IMG src='./images/delete.png'></A>";
           }
           msg += "  " + "<br>";
@@ -366,25 +371,22 @@
       </div>
     </div>
   </div> <!-- 댓글 삭제폼 종료 -->  
-  
+  <div style="margin:100px auto; width:80%; text-align:center">
   <DIV class='title_line'>
-    ${cateVO.name }
+    ${categrpVO.name } > ${cateVO.name }
   </DIV>
   
-  <ASIDE style='float: left;'>
-    ${categrpVO.name } > ${cateVO.name }
-  </ASIDE>
-  <ASIDE style='float: right;'>
-    <A href='./reply.do?contentsno=${contentsno }&cateno=${cateno }'>답변</A>
-    <span class='menu_divide' > | </span>
-    <A href='../attachfile/create.do?contentsno=${contentsno }&cateno=${cateno }'>파일 등록</A>
-    <span class='menu_divide' > | </span>
+
+  <br>
     <A href="javascript:location.reload();">새로고침</A>
     <span class='menu_divide' > | </span> 
     <A href='./list.do?cateno=${cateno }'>목록</A>
     
-    <c:if test="${sessionScope.id != null or sessionScope.memberno != null}">
-    
+    <c:if test="${sessionScope.mem_id != null or sessionScope.memno != null}">
+    <A href='./reply.do?contentsno=${contentsno }&cateno=${cateno }'>답변</A>
+    <span class='menu_divide' > | </span>
+    <A href='../attachfile/create.do?contentsno=${contentsno }&cateno=${cateno }'>파일 등록</A>
+    <span class='menu_divide' > | </span>
     <span class='menu_divide' > | </span>
     <A href='./update.do?cateno=${cateno }&contentsno=${contentsno}'>수정</A>
     <c:choose>
@@ -434,7 +436,7 @@
     <span class='menu_divide' > | </span> 
     <A href='./delete.do?cateno=${cateno }&contentsno=${contentsno}'>삭제</A>
     </c:if>
-  </ASIDE> 
+  <br>
   
   <div class='menu_line'></div>
 
@@ -444,7 +446,6 @@
         <ul>
           <li class="li_none" style='border-bottom: solid 1px #AAAAAA;'>
             <span>${contentsVO.title}</span>
-            (<span>${contentsVO.recom}</span>)
             <span>${contentsVO.rdate.substring(0, 16)}</span>
           </li>
           
@@ -452,17 +453,17 @@
             <DIV id='attachfile_panel' style="width: 70%; margin: 0px auto;"></DIV> <!-- 원본 이미지 출력 -->
           </li>
           <li class="li_none" style='text-align: center;' >
-            <c:set var="file1" value="${contentsVO.file1.toLowerCase() }" />
-            <c:set var="thumb1" value="${contentsVO.thumb1.toLowerCase() }" />
-            <c:if test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}">
+            <c:set var="file1" value="${contentsVO.file1 }" />
+            <c:set var="thumb1" value="${contentsVO.thumb1 }" />
+            <c:if test="${thumb1.toLowerCase().endsWith('jpg') || thumb1.toLowerCase().endsWith('png') || thumb1.toLowerCase().endsWith('gif')}">
               <A href="javascript:panel_img('./storage/main_images/', '${file1 }')"><IMG src='./storage/main_images/${thumb1 }' style='margin-top: 2px; width: 120px; height: 80px;'></A>
             </c:if>
             
             <c:forEach var="attachfileVO" items="${attachfile_list }">
-              <c:set var="thumb" value="${attachfileVO.thumb.toLowerCase() }" />
+              <c:set var="thumb" value="${attachfileVO.thumb }" />
               
               <c:choose>
-                <c:when test="${thumb.endsWith('jpg') || thumb.endsWith('png') || thumb.endsWith('gif')}">
+                <c:when test="${thumb.toLowerCase().endsWith('jpg') || thumb.toLowerCase().endsWith('png') || thumb.toLowerCase().endsWith('gif')}">
                   <A href="javascript:panel_img('../attachfile/storage/', '${attachfileVO.fname }')"><IMG src='../attachfile/storage/${thumb }' style='margin-top: 2px;'></A>
                 </c:when>
               </c:choose>
@@ -470,6 +471,7 @@
           </li>
           
           <li class="li_none">
+          <br>
             <DIV>${contentsVO.content }</DIV>
           </li>
           <li class="li_none">
@@ -503,7 +505,7 @@
           
           <li class="li_none">
             <DIV style='text-decoration: none;'>
-              검색어(키워드): ${contentsVO.word } IP: ${contentsVO.ip }
+              검색어(키워드): ${contentsVO.word } 
               
               <c:if test="${contentsVO.mp3.trim().length() > 0 }">
                 <AUDIO controls autoplay="autoplay">
@@ -515,6 +517,7 @@
           </li>
           <li class="li_none">
             <DIV>
+            <br>
               <span class="glyphicon glyphicon-download-alt"></span>
               파일명을 클릭하면 다운로드가 가능합니다.
               <A href='${pageContext.request.contextPath}/attachfile/downzip.do?contentsno=${contentsno}'><IMG src='./images/zip.png' title='zip 파일 다운로드'></A> 
@@ -536,7 +539,7 @@
       <HR>
       <FORM name='frm_reply' id='frm_reply'> <%-- 댓글 등록 폼 --%>
           <input type='hidden' name='contentsno' id='contentsno' value='${contentsno}'>
-          <input type='hidden' name='memberno' id='memberno' value='${sessionScope.memberno}'>
+          <input type='hidden' name='memno' id='memno' value='${sessionScope.memno}'>
           
           <textarea name='content' id='content' style='width: 100%; height: 60px;' placeholder="댓글 작성, 로그인해야 등록 할 수 있습니다."></textarea>
           <input type='password' name='passwd' id='passwd' placeholder="비밀번호">
@@ -553,7 +556,7 @@
   </DIV>
   
   <!-- 댓글 영역 종료 -->
-
+</div>
 <jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>
 

@@ -40,7 +40,7 @@
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
 
-<div class="form" style="margin:20px auto; width:80%; text-align:center">
+<div class="form" style="margin:100px auto; width:80%; text-align:center">
 	<div style="font-size:20px;" class='title_line'>연락처 수정</div><br>
 			vgaBlog 에서 중요 내용을 알려드릴 때<br>
 			 사용하는 연락처 정보입니다.<br>

@@ -6,7 +6,7 @@
 <head> 
 <meta charset="UTF-8"> 
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
-<title>Resort world</title>
+<title>vgaBlog</title>
  
 <link href="../css/style.css" rel="Stylesheet" type="text/css">
 <script type="text/JavaScript"
@@ -19,6 +19,7 @@
 </head> 
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
+<div class="form" style="margin:100px auto; width:80%; text-align:center">
  
 <DIV class='title_line'>알림</DIV>
  
@@ -76,7 +77,7 @@
   </fieldset>
  
 </DIV>
- 
+</div> 
 <jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>
  

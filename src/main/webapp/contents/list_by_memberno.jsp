@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
-<title>Resort world</title>
+<title>vgaBlog</title>
  
 <link href="../css/style.css" rel="Stylesheet" type="text/css">
  
@@ -19,14 +19,12 @@
  
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
+<div class="form" style="margin:100px auto; width:80%; text-align:center">
 
   <DIV class='title_line'>
-    내가 작성한 글 목록
+    ${memVO.mem_name } 님의 글 목록
   </DIV>
-  
-  <ASIDE style='float: left;'>
-    내가 작성한 전체 글 목록입니다.
-  </ASIDE>
+
   <ASIDE style='float: right;'>
 <%--     <A href="./create.do?cateno=${cateVO.cateno }">등록</A>
     <span class='top_menu_sep'>&nbsp;</span>   --%>  
@@ -37,11 +35,9 @@
   <div style='width: 100%;'>
     <table class="table table-striped" style='width: 100%;'>
       <colgroup>
-        <col style="width: 15%;"></col>
         <col style="width: 20%;"></col>
+        <col style="width: 30%;"></col>
         <col style="width: 50%;"></col>
-        <col style="width: 15%;"></col>
-        <col style="width: 10%;"></col>
       </colgroup>
       <%-- table 컬럼 --%>
       <thead>
@@ -49,8 +45,6 @@
           <th style='text-align: center;'>등록일</th>
           <th style='text-align: center;'>카테고리</th>
           <th style='text-align: center;'>제목</th>
-          <th style='text-align: center;'>회원</th>
-          <th style='text-align: center;'>IP</th>
         </tr>
       
       </thead>
@@ -68,8 +62,8 @@
           <c:set var="ip" value="${cate_Contents_VO.ip }" />
           <c:set var="rdate" value="${cate_Contents_VO.rdate }" />
           
-          <c:set var="memberno" value="${memberVO.memberno }" />
-          <c:set var="mname" value="${memberVO.mname }" />
+          <c:set var="memberno" value="${memVO.memno }" />
+          <c:set var="mname" value="${memVO.mem_name }" />
           
           <tr> 
             <td style='text-align: center;'>${rdate.substring(0, 10)}</td>
@@ -77,8 +71,6 @@
             <td>
               <a href="./read.do?contentsno=${contentsno}">${title}</a> 
             </td> 
-            <td style='text-align: center;'>${mname}</td>
-            <td style='text-align: center;'>${ip}</td>
           </tr>
         </c:forEach>
         
@@ -86,7 +78,7 @@
     </table>
     <br><br>
   </div>
- 
+</div> 
 <jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>
  

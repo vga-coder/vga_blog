@@ -27,17 +27,15 @@
  
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
+<div style="margin:100px auto; width:80%; text-align:center">
   <DIV class='title_line'>
-    ${cateVO.name }
+   <h1> ${cateVO.name }</h1>
   </DIV>
 
   <ASIDE style='float: left;'>
     ${categrpVO.name } > ${cateVO.name } > 신규 등록
   </ASIDE>
-  <ASIDE style='float: right;'>
-    <A href='./list.do?cateno=${param.cateno }'>목록</A>
-    <!-- <span class='menu_divide' >│</span> --> 
-  </ASIDE> 
+
  
   <div class='menu_line'></div>
   <DIV style='width: 100%;'>
@@ -45,7 +43,7 @@
                 enctype="multipart/form-data">
                
       <!-- FK memberno 지정 -->
-      <input type='hidden' name='memberno' id='memberno' value='1'>
+      <input type='hidden' name='memno' id='memno' value='${sessionScope.memno }'>
       <!-- FK categrpno 지정 -->
       <input type='hidden' name='cateno' id='cateno' value='${param.cateno }'>
       
@@ -65,7 +63,7 @@
         <div class="col-md-12">
           <%-- 실제 컬럼명: fiel1, Spring File 객체 대응: fiel1MF --%>
           <input type='file' class="form-control" name='file1MF' id='file1MF' 
-                    value='' placeholder="파일 선택" multiple="multiple">
+                    value='' placeholder="파일 선택">
         </div>
       </div>
 
@@ -97,7 +95,7 @@
     </FORM>
   </DIV>
 
-  
+</div>  
 <jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>
  

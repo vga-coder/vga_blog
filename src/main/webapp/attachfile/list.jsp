@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
-<title>Resort world</title>
+<title>vgaBlog</title>
  
 <link href="../css/style.css" rel="Stylesheet" type="text/css">
  
@@ -14,6 +14,12 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+.li_none {
+    list-style: none;
+    margin: 15px 10px;
+}
+</style>
 <script type="text/javascript">
   function delete_file(attachfileno) {
     var sw = confirm("파일을 삭제 하시겠습니까?");
@@ -29,6 +35,8 @@
  
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
+  <div style="margin:100px auto; width:80%; text-align:center">
+
   <DIV class='title_line'>
     전체 첨부 파일
   </DIV>
@@ -102,7 +110,7 @@
     </table>
     <br><br>
   </div>
- 
+</div> 
 <jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>
  

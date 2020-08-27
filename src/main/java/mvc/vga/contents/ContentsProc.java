@@ -94,8 +94,8 @@ public class ContentsProc implements ContentsProcInter {
   }
 
   @Override
-  public List<Cate_Contents_VO> cate_contents_memberno_list(int memberno) {
-    List<Cate_Contents_VO> list = this.contentsDAO.cate_contents_memberno_list(memberno);
+  public List<Cate_Contents_VO> cate_contents_memberno_list(int memno) {
+    List<Cate_Contents_VO> list = this.contentsDAO.cate_contents_memberno_list(memno);
     return list;
   }
 

@@ -7,7 +7,7 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8">
-  <title>vga_furniture</title>
+  <title>vgaBlog</title>
   
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -48,7 +48,7 @@
 <body>
   <jsp:include page="/menu/top.jsp" flush='false' />
 
-  <div style="margin:20px auto; width:80%; text-align:center">
+  <div style="margin:100px auto; width:80%; text-align:center">
 
 
   <DIV style="margin:20px auto; font-size:20px;" class='title_line'>
@@ -61,17 +61,15 @@
 
  <TABLE class='table table-striped'>
   <colgroup>
-    <col style='width: 10%;'/>
     <col style="width: 20%;"/>
     <col style='width: 20%;'/>
-    <col style='width: 20%;'/>
+    <col style='width: 30%;'/>
     <col style='width: 20%;'/>
     <col style='width: 10%;'/>
   </colgroup>
  
   <thead>  
   <TR>
-    <TH class="th_bs">등급</TH>
     <TH class="th_bs">아이디</TH>
     <TH class="th_bs">이름</TH>
     <TH class="th_bs">생년월일</TH>
@@ -84,7 +82,6 @@
   <c:forEach var="memVO" items="${list }">  <!-- request 객체에 접근 -->
     <c:set var="memno" value="${memVO.memno}" />
     <TR>
-      <TD>${memVO.memlvno }</TD>
       <TD>${memVO.mem_id }</TD>
       <TD>${memVO.mem_name }</TD>
       <TD>${memVO.mem_yy}년/${memVO.mem_mm}월/${memVO.mem_dd}일</TD>

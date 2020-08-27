@@ -355,10 +355,10 @@ public class ContentsCont {
 public ModelAndView delete(HttpSession session, int contentsno) {
   ModelAndView mav = new ModelAndView();
   
-  int memberno = (Integer)session.getAttribute("memberno");
+  int memno = (Integer)session.getAttribute("memno");
   
   // 글 작성자가 일치하는지 확인
-  if (memberno == contentsProc.read(contentsno).getMemberno()) {
+  if (memno == contentsProc.read(contentsno).getMemno()) {
     ContentsVO contentsVO = this.contentsProc.update(contentsno);
     mav.addObject("contentsVO", contentsVO); // request.setAttribute("contentsVO", contentsVO);
     

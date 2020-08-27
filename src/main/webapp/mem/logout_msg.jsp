@@ -29,16 +29,17 @@
 </head> 
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
+<div style="margin:100px auto; width:80%; text-align:center">
  
   <div class="form" style="margin:20px auto; width:80%; text-align:center">
 
 	<DIV style="font-size: 20px;" class='title_line'>vgaBlog</DIV>
 	<br><br>
 	로그아웃되었습니다. <br><br><br>
-    <button type="submit" onclick="location.href='${pageContext.request.contextPath}/loginmode.jsp'">다시 로그인하기</button>
+    <button type="submit" onclick="location.href='${pageContext.request.contextPath}/loginmode.jsp'">다시 로그인</button>
   
   </div>   
- 
+</div> 
 <jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>
  

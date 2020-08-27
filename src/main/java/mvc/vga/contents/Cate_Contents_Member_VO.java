@@ -12,11 +12,11 @@ public class Cate_Contents_Member_VO {
   /** 카테고리 + 컨텐츠 목록 */
   private List<Cate_Contents_VO> cate_contents_memberno_list;
 
-  public MemVO getMemberVO() {
+  public MemVO getMemVO() {
     return memVO;
   }
 
-  public void setMemberVO(MemVO memVO) {
+  public void setMemVO(MemVO memVO) {
     this.memVO = memVO;
   }
 

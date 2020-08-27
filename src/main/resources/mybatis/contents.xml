@@ -25,23 +25,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
      <selectKey keyProperty="contentsno" resultType="int" order="BEFORE">
       SELECT contents_seq.nextval FROM dual
     </selectKey>
-    INSERT INTO contents(contentsno, memberno, cateno, title, content, web, ip,
+    INSERT INTO contents(contentsno, memno, cateno, title, content, web,ip,
                                      passwd, word, rdate, file1, thumb1, size1,
                                      grpno, indent, ansnum)
-    VALUES(#{contentsno}, #{memberno}, #{cateno}, #{title}, #{content}, #{web}, #{ip},
+    VALUES(#{contentsno}, #{memno}, #{cateno}, #{title}, #{content}, #{web}, #{ip},
                 #{passwd}, #{word}, sysdate, #{file1}, #{thumb1}, #{size1},
                 (SELECT NVL(MAX(grpno), 0) + 1 FROM contents), 0, 0)
   </insert>
 
   <select id="list_all" resultType="ContentsVO">
-    SELECT contentsno, memberno, cateno, title, content, web, ip, passwd, word, rdate 
+    SELECT contentsno, memno, cateno, title, content, web, ip, passwd, word, rdate 
     FROM contents 
     ORDER BY contentsno DESC
   </select>  
 
   <!-- cateno별 목록 -->
   <select id="list" resultType="ContentsVO" parameterType="int">
-    SELECT contentsno, memberno, cateno, title, content, web, ip, passwd, word, rdate 
+    SELECT contentsno, memno, cateno, title, content, web, ip, passwd, word, rdate 
     FROM contents 
     WHERE cateno = #{cateno}
     ORDER BY contentsno DESC
@@ -49,7 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
   <!-- 카테고리별 검색 목록 -->
    <select id="list_by_cateno_search" resultType="ContentsVO" parameterType="HashMap">
-     SELECT contentsno, memberno, cateno, title, content, 
+     SELECT contentsno, memno, cateno, title, content, 
            recom, cnt, replycnt, rdate, word
      FROM contents
      <choose>
@@ -101,15 +101,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <!-- 카테고리별 검색 목록 + 페이징 + 메인 이미지 + 답변형 -->
    <select id="list_by_cateno_search_paging" 
               resultType="ContentsVO" parameterType="HashMap">
-     SELECT contentsno, memberno, cateno, title, content, recom, cnt, replycnt, rdate, word, ip,
+     SELECT contentsno, memno, cateno, title, content, recom, cnt, replycnt, rdate, word, ip,
                 file1, thumb1, size1,
                 grpno, indent, ansnum, r
      FROM (
-                SELECT contentsno, memberno, cateno, title, content, recom, cnt, replycnt, rdate, word, ip,
+                SELECT contentsno, memno, cateno, title, content, recom, cnt, replycnt, rdate, word, ip,
                 file1, thumb1, size1,
                 grpno, indent, ansnum, rownum as r
                 FROM (
-                          SELECT contentsno, memberno, cateno, title, content, recom, cnt, replycnt, rdate, word, ip,
+                          SELECT contentsno, memno, cateno, title, content, recom, cnt, replycnt, rdate, word, ip,
                                      file1, thumb1, size1,
                                      grpno, indent, ansnum
                           FROM contents
@@ -138,7 +138,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
   <!--  일반적인 조회 + 답변형 -->
   <select id="read" resultType="ContentsVO" parameterType="int">
-    SELECT contentsno, memberno, cateno, title, content, recom, web,
+    SELECT contentsno, memno, cateno, title, content, recom, web,
                map, youtube, mp3, mp4, ip, passwd, word, rdate,
                file1, thumb1, size1, grpno, indent, ansnum
     FROM contents
@@ -199,8 +199,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <select id="cate_contents_memberno_list" parameterType="int" resultMap="Cate_Contents_VO_Map">
     SELECT c.cateno as c_cateno, c.name as c_name, c.rdate as c_rdate,
                t.contentsno as t_contentsno, t.title as t_title, t.web as t_web, t.ip as t_ip, t.rdate as t_rdate        
-    FROM cate c, contents t, member m
-    WHERE c.cateno = t.cateno AND t.memberno = m.memberno AND m.memberno = #{memberno}
+    FROM cate c, contents t, mem m
+    WHERE c.cateno = t.cateno AND t.memno = m.memno AND m.memno = #{memno}
     ORDER BY c.cateno ASC, t.contentsno DESC
   </select>
   
@@ -245,11 +245,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       SELECT contents_seq.nextval FROM dual
     </selectKey>
     INSERT INTO contents(contentsno,
-                      cateno, memberno, title, content, web, ip, passwd,
+                      cateno, memno, title, content, web, ip, passwd,
                       thumb1, file1, size1,
                       cnt, rdate, word, grpno, indent, ansnum)  
     VALUES(#{contentsno},
-                #{cateno}, #{memberno}, #{title}, #{content}, #{web}, #{ip}, #{passwd},
+                #{cateno}, #{memno}, #{title}, #{content}, #{web}, #{ip}, #{passwd},
                 #{thumb1}, #{file1}, #{size1},
                 #{cnt}, sysdate, #{word}, #{grpno}, #{indent}, #{ansnum})
   </insert>

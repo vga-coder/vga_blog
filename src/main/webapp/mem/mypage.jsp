@@ -34,7 +34,7 @@
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
 
-  <DIV class="form" style="margin:0px auto; width:80%; text-align:center">
+  <DIV class="form" style="margin:100px auto; width:80%; text-align:center">
   
   <FORM name='frm' id='frm' method='POST' action='./mypage.do' class="form-horizontal">
     <input type='hidden' name='memno' id='memno' value='${param.memno }'>
@@ -61,13 +61,12 @@
 			비밀번호를 주기적으로 변경하여 <br>
 			개인정보를 안전하게 보호하세요.<br><br>
 			<button type="button" onclick="location.href='${root}/mem/passwd_update.do?memno=${memno}'">비밀번호 변경</button></div>
-			<div class="card card1">  <div style="margin:40px auto; font-size:20px;">배송지 관리</div>
-			내가 저장한 배송지 및 <br>
-			최근 사용한 배송지를 <br>
-			관리할 수 있습니다.<br><br>
-			<button type="button" onclick="location.href='${root}/destination/list.do?memno=${memno}'">조회하기</button></div>
-			<div class="card card1"></div>
-			<div class="card card1"></div>
+			<div class="card card1">  <div style="margin:40px auto; font-size:20px;">내가 쓴 글 관리</div>
+			지금까지 <br>
+			내가 남긴<br>
+			발자취를 확인해보세요.<br><br>
+			<button type="button" onclick="location.href='${root}/contents/list_by_memberno.do?memno=${memno}'">조회하기</button></div>
+
   </FORM>
   </div>
 

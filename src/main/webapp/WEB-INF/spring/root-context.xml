@@ -23,6 +23,7 @@
                            mvc.vga.cate,
                            mvc.vga.contents,
                            mvc.vga.attachfile,
+                           mvc.vga.reply,
                             " />
 		<property name="mapperLocations" value="classpath:mybatis/*.xml" />
 	</bean>

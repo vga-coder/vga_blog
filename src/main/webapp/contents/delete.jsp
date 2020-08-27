@@ -6,7 +6,7 @@
 <head> 
 <meta charset="UTF-8"> 
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
-<title>Resort world</title>
+<title>vgaBlog</title>
  
 <link href="../css/style.css" rel="Stylesheet" type="text/css">
  
@@ -18,6 +18,7 @@
  
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
+
   <DIV class='title_line'>
     <A href="../categrp/list.do">카테고리 그룹</A> > 
     <A href="../cate/list.do">모든 카테고리</A> > 삭제

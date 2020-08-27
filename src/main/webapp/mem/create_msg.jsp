@@ -23,6 +23,7 @@
 </head> 
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
+  <div style="margin:100px auto; width:80%; text-align:center">
  
   <div class='menu_line'></div>
  
@@ -51,7 +52,7 @@
 
  
 </DIV>
- 
+</div> 
 <jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>
  

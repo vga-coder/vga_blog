@@ -19,7 +19,7 @@
  
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
-
+    <input type='hidden' name='cateno' value='${param.cateno }'> 
   <DIV class='title_line'>
     ${cateVO.name }
   </DIV>

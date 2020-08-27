@@ -6,17 +6,22 @@
 <head> 
 <meta charset="UTF-8"> 
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
-<title>Resort world</title>
+<title>vgaBlog</title>
  
 <link href="../css/style.css" rel="Stylesheet" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
- 
+<style>
+.li_none {
+    list-style: none;
+}
+</style>
 </head> 
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
+  <div class="form" style="margin:100px auto; width:80%; text-align:center">
  
   <DIV class='title_line'>
     첨부 파일
@@ -44,13 +49,10 @@
         <br>
         <button type='button' 
                     onclick="location.href='./create.do?contentsno=${param.contentsno }'"
-                    class="btn btn-info">파일 계속 업로드</button>
+                    class="btn btn-info">파일 계속업로드</button>               
         <button type='button' 
                     onclick="location.href='../contents/read.do?contentsno=${param.contentsno }'"
-                    class="btn btn-info">업로드된 파일 확인</button>                    
-        <button type='button' 
-                    onclick="location.href='../contents/read.do?contentsno=${param.contentsno }'"
-                    class="btn btn-info">글 조회</button>      
+                    class="btn btn-info">글 확인</button>      
         <button type='button' 
                     onclick="location.href='../contents/list.do?cateno=${param.cateno}'"
                     class="btn btn-info">글 목록</button>
@@ -59,7 +61,7 @@
   </fieldset>
  
 </DIV>
- 
+</div> 
 <jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>
  

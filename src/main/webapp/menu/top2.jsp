@@ -49,7 +49,16 @@
 					      </c:choose> 
                     </li>
                     <li class="">
-                        <a class="page-scroll" href="#about">About</a>
+                   		 <c:choose>
+                        	<%-- 회원 로그인 한 경우 --%>
+					        <c:when test="${sessionScope.mem_id != null}">
+					          <A class='menu_link'  href='${root}/mem/mypage.do?memno=${sessionScope.memno}'>마이페이지</A>   
+					        </c:when>
+					        <%-- 관리자 로그인 한 경우 --%>
+					        <c:when test="${sessionScope.id_admin != null}">
+					          <A class='menu_link'  href='${root}/admin/setup.jsp'>페이지 관리</A>  
+					        </c:when>
+					     </c:choose> 
                     </li>
                     <li class="">
                         <a class="page-scroll" href="#team">Team</a>

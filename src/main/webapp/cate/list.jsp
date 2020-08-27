@@ -6,7 +6,7 @@
 <head> 
 <meta charset="UTF-8"> 
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
-<title>Resort world</title>
+<title>vgaBlog</title>
  
 <link href="../css/style.css" rel="Stylesheet" type="text/css">
  
@@ -25,7 +25,7 @@
  
 <body>
 <jsp:include page="/menu/top.jsp" />
- 
+  <div style="margin:100px auto; width:80%; text-align:center"> 
   <DIV class='title_line'>
     <A href="../categrp/list.do">카테고리 그룹</A> > 
     <A href="./list.do">모든 카테고리</A>
@@ -113,7 +113,7 @@
  
 </TABLE>
  
- 
+</div> 
 <jsp:include page="/menu/bottom.jsp" />
 </body>
  

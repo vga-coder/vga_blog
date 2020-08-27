@@ -30,7 +30,11 @@
 	<context:component-scan base-package="mvc.vga.cate" />
 	<context:component-scan base-package="mvc.vga.contents" />
 	<context:component-scan base-package="mvc.vga.attachfile" />
+	<context:component-scan base-package="mvc.vga.reply" />
 	
-	
+  <!-- FORM의 FILE 태그를 읽어 MultipartFile 객체로 변환 -->
+  <beans:bean id="multipartResolver"
+    class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+  </beans:bean>
 	
 </beans:beans>
